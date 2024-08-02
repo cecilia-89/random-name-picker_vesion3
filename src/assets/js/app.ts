@@ -27,9 +27,6 @@ import SoundEffects from '@js/SoundEffects';
   // function that animates names to fadeIn and fadeOut
   const reelAnimation =  () => {
 
-    const audio = new Audio('images/drum-roll-please-6386.mp3');
-    audio.play();
-
     const soundEffects = new SoundEffects()
     const duration = input.value? Number(input.value) : 1
     const animationDuration = duration * 60 * 1000;
@@ -41,7 +38,7 @@ import SoundEffects from '@js/SoundEffects';
     let startTime = Date.now();
     const shuffledArray = slot.names.sort(() => 0.5 - Math.random())
     winnerElement!.textContent = '';
-    let intervalId: ReturnType<typeof setTimeout> | undefined;
+    let intervalId: ReturnType<typeof setInterval> | undefined;
     stopWinningAnimation();
 
 
@@ -64,7 +61,9 @@ import SoundEffects from '@js/SoundEffects';
       } else {
           // Stop animation and display winner
           console.log('in elasped time')
-          clearInterval(intervalId);
+          if (intervalId !== undefined) {
+            clearInterval(intervalId);
+          }
           onSpinEnd()
           const winnerIndex = Math.floor(Math.random() * slot.names.length);
           winnerElement!.textContent = `${slot.names[winnerIndex]}`; 
@@ -76,7 +75,9 @@ import SoundEffects from '@js/SoundEffects';
 
   // Stop the animation after the specified duration
   setTimeout(() => {
+    if (intervalId !== undefined) {
       clearInterval(intervalId);
+  }
   }, animationDuration);
 
 }
