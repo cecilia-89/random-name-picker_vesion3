@@ -41,7 +41,7 @@ import SoundEffects from '@js/SoundEffects';
     let startTime = Date.now();
     const shuffledArray = slot.names.sort(() => 0.5 - Math.random())
     winnerElement!.textContent = '';
-    let intervalId: number | undefined;
+    let intervalId: ReturnType<typeof setTimeout> | undefined;
     stopWinningAnimation();
 
 
